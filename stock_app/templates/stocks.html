@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+Stocks list
+
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ person }}</h1>
+<ul>
+    {% for item in stocks %}
+        <li>{{ item.stock_code }}</li>
+        <li>{{ item.sell_at }}</li>
+        <li>{{ item.buy_at }}</li>
+        <li>{{ item.cur_price }}</li>
+        <li>{{ item.time_to_search }}</li>
+        <br>
+    {% endfor %}
+</ul>
+
+{% endblock %}
