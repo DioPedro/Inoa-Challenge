@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sessions',   
-    'stock_app'
+    'crispy_forms',
+    'crispy_bootstrap4',
+    'stock_app',
+    'register'
 ]
 
 SITE_ID = 1
@@ -126,3 +129,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = False
+
+CRISPY_TEMPLATE_PACK="bootstrap4"

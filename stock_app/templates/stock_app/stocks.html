@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'stock_app/base.html' %}
 
 {% block title %}
 
@@ -18,6 +18,10 @@ Stocks list
         <li>{{ item.time_to_search }}</li>
         <br>
     {% endfor %}
+    <!-- Create a button to edit the stock -->
 </ul>
+
+<!-- Create a new stock through here -->
+<a href="/create"><button>Create new alert</button></a>
 
 {% endblock %}

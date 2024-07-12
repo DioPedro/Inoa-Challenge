@@ -9,11 +9,11 @@ from django import template
 
 # Create your views here.
 def hello(request):
-    return render(request, 'home.html')
+    return render(request, 'stock_app/home.html')
 
 def stocks(request, person):
     stocks = Stocks.objects.filter(person__name = person)
-    return render(request, 'stocks.html', {'stocks':stocks, 'person':person})
+    return render(request, 'stock_app/stocks.html', {'stocks':stocks, 'person':person})
 
 # TODO: Create done, but still needs to edit and delete stocks from an account
 def create(request):
@@ -42,9 +42,12 @@ def create(request):
                 return HttpResponseRedirect(f'/stock/{name}')
             
             else:
-                print("Invalid company")
+                return HttpResponseRedirect(f'/error') # TODO: Test if failed requests redirect to right place
 
     else:
         form = CreateNewStock()
 
-    return render(request, "create.html", {'form': form})
+    return render(request, "stock_app/create.html", {'form': form})
+
+def invalidRequest(request):
+    return render(request, 'stock_app/error.html')

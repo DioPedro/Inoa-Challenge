@@ -1,4 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'stock_app/base.html' %}
+{% load crispy_forms_tags %}
+
 {% block title %}
 Create New Stock
 {% endblock %}
@@ -7,7 +9,7 @@ Create New Stock
 
 <form method = "post" action="/create">
     {% csrf_token %}
-    {{form.as_p}}
+    {{form|crispy}}
     <button type = "submit", name = "save">Create new Stock</button>
 </form>
 
