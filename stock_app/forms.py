@@ -1,8 +1,8 @@
 from django import forms
+from .models import Stocks
 
 # Creating a class to user create an stock
-class CreateNewStock(forms.Form):
-    stock_code = forms.CharField(label = "Stock Code", max_length = 10)
-    sell_at = forms.FloatField(label = "Price to sell stock")
-    buy_at = forms.FloatField(label = "Price to buy stock")
-    time_to_search = forms.IntegerField(label = "Time to research the stock in seconds")
+class CreateNewStock(forms.ModelForm):
+    class Meta:
+        model = Stocks
+        fields = ['stock_code', 'sell_at', 'buy_at', 'time_to_search']

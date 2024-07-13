@@ -131,3 +131,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 APPEND_SLASH = False
 
 CRISPY_TEMPLATE_PACK="bootstrap4"
+
+LOGIN_REDIRECT_URL = '/create'
+LOGOUT_REDIRECT_URL = '/'

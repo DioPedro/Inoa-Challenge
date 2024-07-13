@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
+# importing Person model from another folder
 import sys
 sys.path.insert(0, '/home/dio/Inoa-Challenge/stock_app')
 from stock_app.models import Person

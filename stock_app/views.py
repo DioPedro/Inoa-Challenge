@@ -5,8 +5,6 @@ from .forms import CreateNewStock
 from .scrap import stockPrice
 from django import template
 
-# TODO: look here https://stackoverflow.com/questions/21062560/django-variable-in-base-html for looking at a way to put a global variable into settings.py to make stocks button href work
-
 # Create your views here.
 def hello(request):
     return render(request, 'stock_app/home.html')
@@ -15,19 +13,18 @@ def stocks(request, person):
     stocks = Stocks.objects.filter(person__name = person)
     return render(request, 'stock_app/stocks.html', {'stocks':stocks, 'person':person})
 
-# TODO: Create done, but still needs to edit and delete stocks from an account
 def create(request):
     if request.method == "POST":
         form = CreateNewStock(request.POST)
 
         if form.is_valid():
-            name = 'dio' #TODO: make the logged user info come here to auto attach stock to user
+            name = request.user
             p = Person.objects.get(name = name)
 
-            stock = form.cleaned_data['stock_code'] #TODO: Check if the stock alredy exists
+            stock = form.cleaned_data['stock_code']
             if Stocks.objects.filter(stock_code = stock):
-                print("Company alredy exists in database")
-                return HttpResponseRedirect(f'/stock/{name}')
+                return HttpResponseRedirect(f'/error/Company alredy exists in database')
+
             
             price = stockPrice(stock)
 
@@ -42,12 +39,32 @@ def create(request):
                 return HttpResponseRedirect(f'/stock/{name}')
             
             else:
-                return HttpResponseRedirect(f'/error') # TODO: Test if failed requests redirect to right place
-
+                return HttpResponseRedirect(f'/error')
     else:
         form = CreateNewStock()
 
     return render(request, "stock_app/create.html", {'form': form})
 
-def invalidRequest(request):
-    return render(request, 'stock_app/error.html')
+def edit(request, id):
+    stock = Stocks.objects.get(id = id)
+
+    if request.method == "POST":
+        form = CreateNewStock(request.POST, instance = stock)
+        if form.is_valid():
+            stock = form.cleaned_data['stock_code']
+            print(form.cleaned_data)
+
+            if Stocks.objects.filter(stock_code = stock):
+                return HttpResponseRedirect(f'/error/Company alredy exists in database')
+            
+            form.save()
+            return HttpResponseRedirect(f'/stock/{request.user}')
+    else:
+        form = CreateNewStock(instance = stock)
+
+    return render(request, "stock_app/edit.html", {'form': form, "id":id})
+
+# def delete(request, id):
+
+def invalidRequest(request, error_msg):
+    return render(request, 'stock_app/error.html', {'error_msg': error_msg})

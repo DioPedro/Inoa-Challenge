@@ -8,7 +8,7 @@ Bad Request!
 
 {% block content %}
 
-<h1>Invalid Request!</h1>
-<a href="/create"><button>Try again!</button></a>
+<h1>{{error_msg}}</h1>
+<a href="/stock/{{user.get_username}}"><button class="btn btn-success">Back to your list!</button></a>
 
 {% endblock %}

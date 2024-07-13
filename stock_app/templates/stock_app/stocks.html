@@ -8,20 +8,21 @@ Stocks list
 
 {% block content %}
 
-<h1>{{ person }}</h1>
 <ul>
     {% for item in stocks %}
-        <li>{{ item.stock_code }}</li>
-        <li>{{ item.sell_at }}</li>
-        <li>{{ item.buy_at }}</li>
-        <li>{{ item.cur_price }}</li>
-        <li>{{ item.time_to_search }}</li>
+        <li>Stock code: {{ item.stock_code }}</li>
+        <li>Price to sell stock: {{ item.sell_at }}</li>
+        <li>Price to buy stock: {{ item.buy_at }}</li>
+        <li>Current item price: {{ item.cur_price }}</li>
+        <li>Time to search: {{ item.time_to_search }}</li>
+        <a href="/edit/{{item.id}}"><button class="btn btn-success">Edit alert</button></a>
+        <a href="/delete/{{item.id}}"><button class="btn btn-success">Delete alert</button></a>
         <br>
     {% endfor %}
     <!-- Create a button to edit the stock -->
 </ul>
 
 <!-- Create a new stock through here -->
-<a href="/create"><button>Create new alert</button></a>
+<a href="/create"><button class="btn btn-success">Create new alert</button></a>
 
 {% endblock %}
