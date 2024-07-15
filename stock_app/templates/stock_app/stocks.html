@@ -10,16 +10,18 @@ Stocks list
 
 <ul>
     {% for item in stocks %}
-        <li>Stock code: {{ item.stock_code }}</li>
+        <h3>Stock {{ item.stock_code }}
+            <img src="{{ item.stock_img }}" width="50" height="50">    
+        </h3>
         <li>Price to sell stock: {{ item.sell_at }}</li>
         <li>Price to buy stock: {{ item.buy_at }}</li>
         <li>Current item price: {{ item.cur_price }}</li>
-        <li>Time to search: {{ item.time_to_search }}</li>
+        <li>Time to search in seconds: {{ item.time_to_search }}</li>
         <a href="/edit/{{item.id}}"><button class="btn btn-success">Edit alert</button></a>
         <a href="/delete/{{item.id}}"><button class="btn btn-success">Delete alert</button></a>
         <br>
+        <br>
     {% endfor %}
-    <!-- Create a button to edit the stock -->
 </ul>
 
 <!-- Create a new stock through here -->

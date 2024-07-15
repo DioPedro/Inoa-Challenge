@@ -20,9 +20,9 @@ from django.urls import path, include
 from register import views as rv
 
 urlpatterns = [
+    path('', include('stock_app.urls')),
     path('admin/', admin.site.urls),
     path('register', rv.register, name = 'register'),
-    path('', include('stock_app.urls')),
-    path('', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('login', auth_views.LoginView.as_view(template_name = 'registration/login.html'), name = 'login'),
     path('accounts/', include('django.contrib.auth.urls'))
 ]

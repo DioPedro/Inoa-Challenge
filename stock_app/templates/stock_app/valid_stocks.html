@@ -1,0 +1,21 @@
+{% extends 'stock_app/base.html' %}
+
+{% block title %}
+
+Stocks list
+
+{% endblock %}
+
+{% block content %}
+
+{% for item in stocks %}
+<h3> {{ item.stock_code }}
+    <img src="{{ item.img_url }}" width="50" height="50">
+</h3>
+<br>
+{% endfor %}
+
+<!-- Create a new stock through here -->
+<a href="/create"><button class="btn btn-success">Create new alert</button></a>
+
+{% endblock %}

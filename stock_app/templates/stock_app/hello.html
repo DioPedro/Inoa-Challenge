@@ -1,0 +1,14 @@
+{% extends "stock_app/base.html" %}
+
+{% block title %}
+
+Bad Request!
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome {{user.get_username}} to your stock alert app!</h1>
+<a href="/stock/{{user.get_username}}"><button class="btn btn-success">Go to your list!</button></a>
+
+{% endblock %}
