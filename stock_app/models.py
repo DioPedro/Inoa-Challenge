@@ -25,7 +25,6 @@ class Stocks(models.Model):
 
         # Update the time value for counting until update again
         self.time = django.utils.timezone.now()
-        print(self.time)
 
         # Call checkLimits to check if emails should be send
         self.checkLimitsPrice()

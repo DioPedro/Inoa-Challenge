@@ -6,6 +6,9 @@ from .models import Person, Stocks
 from .forms import CreateNewStock
 from .scrap import stockPrice, getStockList
 
+def redirect(request):
+    return HttpResponseRedirect('/login')
+
 # Create your views here.
 def hello(request):
     return render(request, 'stock_app/hello.html')

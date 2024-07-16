@@ -11,10 +11,17 @@
 }
 
 .your-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 250px);
-  grid-gap: 10px;
-  row-gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 250px);
+    grid-gap: 10px;
+    row-gap: 30px;
+}
+
+.valids-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 200px);
+    grid-gap: 10px;
+    row-gap: 30px;
 }
 
 .grid-element {
@@ -35,4 +42,10 @@
     align-items: center;
     justify-content: flex-start;
     gap: 15px;
+}
+
+.button-center {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }

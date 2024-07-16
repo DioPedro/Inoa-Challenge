@@ -1,5 +1,7 @@
 import requests, os
-token = '8VZJGvnyNJYsqRqY3ZdHt2'
+from django.conf import settings
+
+token = settings.API_KEY
 
 def stockPrice(stock):
     url = f'https://brapi.dev/api/quote/{stock}?token={token}'

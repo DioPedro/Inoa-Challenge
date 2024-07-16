@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import RegisterForm
+
 
 # importing Person model from another folder
 import sys
@@ -23,7 +25,7 @@ def register(request):
             form.save()
             user = authenticate(username = name, password = form.cleaned_data['password1'])
             login(request, user)
-            return redirect(f'/stock/{name}')
+            return HttpResponseRedirect(f'/stock/{name}')
 
     else:
         form = RegisterForm()

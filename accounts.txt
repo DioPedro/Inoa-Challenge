@@ -6,3 +6,7 @@ password: g455t4t10n
 
 username: brazilianbanks
 password: br4z1l14nb4nk5
+
+Admin account:
+username: 1n044dm1n
+password: 1n04t3st

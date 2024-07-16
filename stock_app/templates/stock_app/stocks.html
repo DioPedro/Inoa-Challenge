@@ -6,6 +6,7 @@ Stocks list
 
 {% block content %}
 
+{% if stocks %}
 <ul class="your-grid list">
     {% for item in stocks %}
     <div class="grid-element">
@@ -14,27 +15,33 @@ Stocks list
             <h3>{{ item.stock_code }}</h3>
         </div>
         <div class='stock-list'>
-            <img src="https://cdn-icons-png.flaticon.com/512/9730/9730651.png" width="40" height="40">    
+            <img src="https://cdn-icons-png.flaticon.com/512/9730/9730651.png" width="25" height="25">    
             <li>Sell Price: <b>{{ item.sell_at }}</b></li>
         </div>
         <div class='stock-list'>
-            <img src="https://cdn-icons-png.flaticon.com/512/10068/10068767.png" width="40" height="40">    
+            <img src="https://cdn-icons-png.flaticon.com/512/10068/10068767.png" width="25" height="25">    
             <li>Buy Price: <b>{{ item.buy_at }}</b></li>
         </div>
         <div class='stock-list'>
-            <img src="https://cdn-icons-png.flaticon.com/512/9252/9252105.png" width="40" height="40">    
+            <img src="https://cdn-icons-png.flaticon.com/512/9252/9252105.png" width="25" height="25">    
             <li>Current Price: <b>{{ item.cur_price }}</b></li>
         </div>
         <div class='stock-list'>
-            <img src="https://cdn-icons-png.flaticon.com/512/3804/3804069.png" width="40" height="40">    
+            <img src="https://cdn-icons-png.flaticon.com/512/3804/3804069.png" width="25" height="25">    
             <li>Refresh time: <b>{{ item.time_to_search }}</b></li>
         </div>
         <div class="stock-list">    
             <a href="/edit/{{item.id}}"><button class="btn btn-success">Edit alert</button></a>
-            <a href="/delete/{{item.id}}"><button class="btn btn-success">Delete alert</button></a>
+            <a href="/delete/{{item.id}}"><button class="btn btn-danger">Delete alert</button></a>
         </div>
     </div>
     {% endfor %}
 </ul>
+{% else %}
+<div class="button-center ">   
+    <h1>Try adding a stock</h1>
+    <a href="/create"><button class="btn btn-success">Create new alert</button></a>
+</div>
+{% endif %}
 
 {% endblock %}
