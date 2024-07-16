@@ -9,9 +9,11 @@ Create New Stock
 
 <!-- TODO: Try to create the list of all possible companies to select from (if it works put also put on edit) -->
 <h1>Create an alert for a stock</h1>
+<br>
 <form method = "post" action="/create">
     {% csrf_token %}
     {{form|crispy}}
+    <br>
     <button type = "submit", name = "save" class="btn btn-success">Create new Stock</button>
 </form>
 

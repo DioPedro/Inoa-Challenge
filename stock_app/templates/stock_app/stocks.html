@@ -1,30 +1,40 @@
 {% extends 'stock_app/base.html' %}
 
 {% block title %}
-
 Stocks list
-
 {% endblock %}
 
 {% block content %}
 
-<ul>
+<ul class="your-grid list">
     {% for item in stocks %}
-        <h3>Stock {{ item.stock_code }}
+    <div class="grid-element">
+        <div class='stock-list'>
             <img src="{{ item.stock_img }}" width="50" height="50">    
-        </h3>
-        <li>Price to sell stock: {{ item.sell_at }}</li>
-        <li>Price to buy stock: {{ item.buy_at }}</li>
-        <li>Current item price: {{ item.cur_price }}</li>
-        <li>Time to search in seconds: {{ item.time_to_search }}</li>
-        <a href="/edit/{{item.id}}"><button class="btn btn-success">Edit alert</button></a>
-        <a href="/delete/{{item.id}}"><button class="btn btn-success">Delete alert</button></a>
-        <br>
-        <br>
+            <h3>{{ item.stock_code }}</h3>
+        </div>
+        <div class='stock-list'>
+            <img src="https://cdn-icons-png.flaticon.com/512/9730/9730651.png" width="40" height="40">    
+            <li>Sell Price: <b>{{ item.sell_at }}</b></li>
+        </div>
+        <div class='stock-list'>
+            <img src="https://cdn-icons-png.flaticon.com/512/10068/10068767.png" width="40" height="40">    
+            <li>Buy Price: <b>{{ item.buy_at }}</b></li>
+        </div>
+        <div class='stock-list'>
+            <img src="https://cdn-icons-png.flaticon.com/512/9252/9252105.png" width="40" height="40">    
+            <li>Current Price: <b>{{ item.cur_price }}</b></li>
+        </div>
+        <div class='stock-list'>
+            <img src="https://cdn-icons-png.flaticon.com/512/3804/3804069.png" width="40" height="40">    
+            <li>Refresh time: <b>{{ item.time_to_search }}</b></li>
+        </div>
+        <div class="stock-list">    
+            <a href="/edit/{{item.id}}"><button class="btn btn-success">Edit alert</button></a>
+            <a href="/delete/{{item.id}}"><button class="btn btn-success">Delete alert</button></a>
+        </div>
+    </div>
     {% endfor %}
 </ul>
-
-<!-- Create a new stock through here -->
-<a href="/create"><button class="btn btn-success">Create new alert</button></a>
 
 {% endblock %}

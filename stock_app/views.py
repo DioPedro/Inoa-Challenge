@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from .models import Person, Stocks
 from .forms import CreateNewStock
 from .scrap import stockPrice, getStockList
-from django import template
 
 # Create your views here.
 def hello(request):
@@ -12,6 +12,8 @@ def hello(request):
 
 def stocks(request, person):
     stocks = Stocks.objects.filter(person__name = person)
+    if str(request.user) != person:
+        return HttpResponseRedirect(f'/error/This isn\'t your stock list')
     return render(request, 'stock_app/stocks.html', {'stocks':stocks, 'person':person})
 
 @login_required
@@ -22,10 +24,15 @@ def create(request):
         if form.is_valid():
             name = request.user
             p = Person.objects.get(name = name)
-
             stock = form.cleaned_data['stock_code']
-            if Stocks.objects.filter(stock_code = stock):
-                return HttpResponseRedirect(f'/error/Company alredy exists in database')
+
+            stocks = Stocks.objects.filter(
+                Q(person__name = name),
+                stock_code = stock
+            )
+
+            if stocks:
+                return HttpResponseRedirect(f'/error/There\'s alredy an alert for this stock for you')
 
             stock_data = stockPrice(stock)
 
@@ -33,13 +40,14 @@ def create(request):
             if len(stock_data) >= 2:
                 sell = form.cleaned_data['sell_at']
                 buy = form.cleaned_data['buy_at']
-                # Time to update can only be 30min or more  because of the API
+                # Time to update can only be 30min or more because of the API
                 time = form.cleaned_data['time_to_search']
-                if time < 1800000:
-                    time = 1800000
+                if time < 30:
+                    time = 30
                 s = Stocks(person = p, stock_code = stock, stock_img = stock_data[1], sell_at = sell, buy_at = buy,
                         cur_price = stock_data[0], time_to_search = time)
                 s.save()
+                s.checkLimitsPrice()
                 return HttpResponseRedirect(f'/stock/{name}')
             
             else:
@@ -56,7 +64,8 @@ def edit(request, id):
     person_name = old_stock.person.name
     
     # Prevent users to edit stocks from other users
-    if person_name != request.user:
+    # request.usr isn't a str so need to convert to check right
+    if person_name != str(request.user):
         return HttpResponseRedirect(f'/error/This stock is not yours to change')
 
     if request.method == "POST":
@@ -64,12 +73,13 @@ def edit(request, id):
         if new_stock.is_valid():
             stock_code = new_stock.cleaned_data['stock_code']
 
-            if new_stock.cleaned_data['time_to_search'] < 1800000:
-                return HttpResponseRedirect(f'/error/Time need to be bigger than 1800000, remember time should be in seconds')
+            if new_stock.cleaned_data['time_to_search'] < 30:
+                return HttpResponseRedirect(f'/error/Time need to be bigger than 30 because of the API, remember time should be in minutes')
             
             # The user is updating the same stock alert
             if old_stock_code == stock_code:
                 new_stock.save()
+                old_stock.updateMarketPrice()
                 return HttpResponseRedirect(f'/stock/{request.user}')
             
             else:
@@ -83,6 +93,9 @@ def edit(request, id):
 # In thesis we need to get the instance and then instance.delete()
 def delete(request, id):
     stock = Stocks.objects.get(id = id)
+    if stock.person.name != str(request.user):
+        return HttpResponseRedirect(f'/error/This stock is not yours to delete')
+
     stock.delete()
     return HttpResponseRedirect(f'/stock/{request.user}')
 

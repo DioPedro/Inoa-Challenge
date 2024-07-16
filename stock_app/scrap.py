@@ -6,7 +6,6 @@ def stockPrice(stock):
     request = requests.get(url)
     if request.status_code == 200:
         data = requests.get(url).json()['results'][0]
-        print(data)
         return [data['regularMarketPrice'], data['logourl']]
     else:
         return []

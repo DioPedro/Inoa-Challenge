@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sessions',   
+    'django.contrib.sessions',
+    'django_crontab',   
     'crispy_forms',
     'crispy_bootstrap4',
     'stock_app',
@@ -122,6 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -135,3 +139,14 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/hello'
 LOGOUT_REDIRECT_URL = '/login'
+
+CRONJOBS = [
+    # This command '>> ~/Inoa-Challenge/stock_app/django_cron.log 2>&1'
+    # makes the log go to the log file in the path
+    # Each minute the cron job will check if any value need to be updated
+    ('* * * * *', 'stock_app.cron.update', '>> ~/Inoa-Challenge/stock_app/django_cron.log 2>&1')
+]
+
+# email config
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_USER = 'alert@stock_app.com'

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from .forms import RegisterForm
+
 # importing Person model from another folder
 import sys
 sys.path.insert(0, '/home/dio/Inoa-Challenge/stock_app')
@@ -19,7 +21,9 @@ def register(request):
             p.save()
 
             form.save()
-            return redirect('/home')
+            user = authenticate(username = name, password = form.cleaned_data['password1'])
+            login(request, user)
+            return redirect(f'/stock/{name}')
 
     else:
         form = RegisterForm()

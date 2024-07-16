@@ -1,0 +1,8 @@
+username: bigtechs
+password: b1gt3ch5
+
+username: gasstations
+password: g455t4t10n
+
+username: brazilianbanks
+password: br4z1l14nb4nk5

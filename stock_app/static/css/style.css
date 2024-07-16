@@ -1,0 +1,38 @@
+.unstyled-button {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+.border-box {
+    max-width: fit-content;
+    margin-inline: auto;
+    margin-top: 40px;
+}
+
+.your-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  grid-gap: 10px;
+  row-gap: 30px;
+}
+
+.grid-element {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.list {
+    padding: 0;
+    list-style-type: none;
+    clear: both;
+}
+
+.stock-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
